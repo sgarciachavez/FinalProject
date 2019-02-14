@@ -1,0 +1,132 @@
+#breadcrumb {
+    padding: 10px 10px 10px;
+    background-color: #eee;
+    margin: 0;
+    text-align: left;
+}
+
+/* Display list items side by side */
+#breadcrumb li {
+    display: inline;
+}
+/* Add a slash symbol (/) before/behind each list item */
+#breadcrumb li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+}
+#breadcrumb li a {
+    color: #0275d8;
+    text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+#breadcrumb li a:hover {
+    color: #01447e;
+    text-decoration: underline;
+}
+.main-container{
+  background-color: #f3f3f3;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  grid-template-areas: "restaurant map"
+                        "review map";
+}
+.restaurant{
+  grid-area: restaurant;
+  max-width: 100%;
+  padding: 10px;
+  border-bottom-style: groove;
+  border-bottom-width: 3px;
+  border-bottom-color: #f3f3f3;
+}
+.review{
+  grid-area: review;
+  // max-width: 420px;
+  // min-width: 200px;
+  padding-left: 10px;
+  overflow: auto;
+  max-height: 600px;
+}
+#restaurant-img {
+	width: 100%;
+  border-radius: 25px;
+}
+
+#restaurant-name {
+  color: #f18200;
+  font-weight: 200;
+  text-transform: uppercase;
+}
+
+#restaurant-address {
+  font-size: 14pt;
+  margin: 10px 0px;
+}
+#restaurant-cuisine {
+  background-color: #333;
+  color: #ddd;
+  // font-size: 12pt;
+  // font-weight: 300;
+  letter-spacing: 10px;
+  margin: 0 0 20px;
+  padding: 2px 0;
+  text-align: center;
+  text-transform: uppercase;
+	// width: 90%;
+}
+#restaurant-hours td {
+  color: #666;
+  font-size: 13pt;
+}
+
+#reviews-container h2 {
+  color: #f58500;
+  font-weight: 300;
+}
+
+#reviews-list{
+  list-style-type: none;
+  padding-left: 0px;
+}
+#reviews-list li{
+  background-color: #fff;
+  padding: 15px;
+  margin: 15px;
+  text-indent: 0px;
+  border-radius: 25px;
+}
+.rating{
+  background-color: #f58500;
+  color: white;
+  padding: 8px;
+  border-radius: 10px;
+  width: 25%;
+}
+
+// #restaurant-container, #reviews-container {
+//   border-bottom: 1px solid #d9d9d9;
+//   border-top: 1px solid #fff;
+//   padding: 140px 40px 30px;
+//   width: 50%;
+// }
+
+@media only screen and (max-width: 600px) {
+  .main-container {
+      background-color: #f3f3f3;
+      grid-template-columns: 100%;
+      grid-template-areas:
+      "map"
+      "restaurant"
+      "review";
+    }
+    .map-container{
+      height: 400px;
+    }
+    .review{
+      max-width: 100%;
+    }
+    .restaurant{
+      max-width: 100%;
+    }
+}
