@@ -35,7 +35,7 @@ header h1 a {
   color: white;
 }
 .main-container{
-  // background-color: pink;
+  background-color: #f3f3f3;
   display: grid;
   /* grid-gab: 1em; */
   grid-template-columns: 25% 75%;
@@ -94,7 +94,7 @@ header h1 a {
 ul, li {
  margin-left:0px;
  padding: 0;
- border-bottom: 4px solid orange;
+ border-bottom: 1px solid orange;
 }
 #restaurants-list {
   background-color: #f3f3f3;
@@ -154,11 +154,8 @@ li{
 }
 
 @media only screen and (max-width: 885px) {
-  body {
-    /* background-color: lightblue; */
-  }
   .main-container {
-    background-color: pink;
+      background-color: #f3f3f3;
       grid-template-columns: 100%;
       grid-template-areas:
       "filters"
@@ -174,9 +171,30 @@ li{
     .restaurants{
       max-width: 100%;
     }
+
+    #restaurants-list .restaurant-img {
+      max-width: 400px;
+      float: left;
+    }
+    #restaurants-list li div{
+      text-align: center;
+      padding-top: 25px;
+      height: 275px;
+    }
 }
 
+@media only screen and (max-width: 650px) {
+  #restaurants-list .restaurant-img {
+    max-width: 100%;
+    float: none;
+  }
 
+  #restaurants-list li div{
+    text-align: left;
+    padding-top: 0px;
+    height: 100%;
+  }
+}
 
 
 // MY STUFF
