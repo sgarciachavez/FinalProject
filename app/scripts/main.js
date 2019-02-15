@@ -11,6 +11,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
   initMap(); // added
   fetchNeighborhoods();
   fetchCuisines();
+  keyDownEventListener('neighborhoods-select');
+  keyDownEventListener('cuisines-select');
 });
 
 /**
@@ -34,12 +36,59 @@ const fetchNeighborhoods = () => {
  */
 const fillNeighborhoodsHTML = (neighborhoods = self.neighborhoods) => {
   const select = document.getElementById('neighborhoods-select');
+
   neighborhoods.forEach(neighborhood => {
     const option = document.createElement('option');
     option.innerHTML = neighborhood;
     option.value = neighborhood;
+    option.setAttribute('tabindex','-1');
     select.append(option);
   });
+}
+
+
+const keyDownEventListener = (id) => {
+  const group = {};
+  group.id = id;
+  group.el = document.getElementById(id);
+  group.options = group.el.getElementsByTagName('option');
+  group.focusedIdx = 0;
+  group.focusedOption = group.options[group.focusedIdx];
+
+
+  group.el.addEventListener('keydown', (e) => {
+
+    if(e.code === 'ArrowDown' || e.code === 'ArrowLeft'){
+
+      e.preventDefault();
+      if (group.focusedIdx === group.options.length - 1) {
+        group.focusedIdx = 0;
+      } else {
+        group.focusedIdx++;
+      }
+    }else if(e.code === 'ArrowUp' || e.code === 'ArrowRight'){
+      e.preventDefault();
+      if (group.focusedIdx === 0) {
+        group.focusedIdx = group.options.length - 1;
+      } else {
+        group.focusedIdx--;
+      }
+    }
+    changeFocus(group, group.focusedIdx);
+  });
+}
+
+const changeFocus = (group, idx) => {
+
+  // Set the old button to tabindex -1
+  group.focusedOption.tabIndex = -1;
+  group.focusedOption.removeAttribute('selected');
+
+  // Set the new button to tabindex 0 and focus it
+  group.focusedOption = group.options[idx];
+  group.focusedOption.tabIndex = 0;
+  group.focusedOption.focus();
+  group.focusedOption.setAttribute('selected', 'selected');
 }
 
 /**
@@ -56,7 +105,6 @@ const fetchCuisines = () => {
   });
 }
 
-
 /**
  * Set cuisines HTML.
  */
@@ -67,6 +115,8 @@ const fillCuisinesHTML = (cuisines = self.cuisines) => {
     const option = document.createElement('option');
     option.innerHTML = cuisine;
     option.value = cuisine;
+    option.setAttribute('tabindex','-1');
+    option.setAttribute('selected', 'selected');
     select.append(option);
   });
 }
@@ -93,18 +143,18 @@ const initMap = () => {
 }
 
 
-/* window.initMap = () => {
-  let loc = {
-    lat: 40.722216,
-    lng: -73.987501
-  };
-  self.map = new google.maps.Map(document.getElementById('map'), {
-    zoom: 12,
-    center: loc,
-    scrollwheel: false
-  });
-  updateRestaurants();
-} */
+// window.initMap = () => {
+//   let loc = {
+//     lat: 40.722216,
+//     lng: -73.987501
+//   };
+//   self.map = new google.maps.Map(document.getElementById('map'), {
+//     zoom: 12,
+//     center: loc,
+//     scrollwheel: false
+//   });
+//   updateRestaurants();
+// }
 
 /**
  * Update page and map for current restaurants.
@@ -190,9 +240,13 @@ const createRestaurantHTML = (restaurant) => {
   const image = document.createElement('img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.setAttribute('alt','Image of restaurant named: ' + restaurant.name);
+  //tabindex="0"
+  image.setAttribute('tabindex', '0');
   li.append(image);
 
   const div = document.createElement('div');
+  div.setAttribute('tabindex','0');
   li.append(div);
 
   const name = document.createElement('h1');
