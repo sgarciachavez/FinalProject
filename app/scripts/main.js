@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   fetchCuisines();
   keyDownEventListener('neighborhoods-select');
   keyDownEventListener('cuisines-select');
+
 });
 
 /**
@@ -116,7 +117,6 @@ const fillCuisinesHTML = (cuisines = self.cuisines) => {
     option.innerHTML = cuisine;
     option.value = cuisine;
     option.setAttribute('tabindex','-1');
-    option.setAttribute('selected', 'selected');
     select.append(option);
   });
 }
@@ -294,3 +294,15 @@ const addMarkersToMap = (restaurants = self.restaurants) => {
     self.markers.push(marker);
   });
 } */
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      // Registration was successful
+      console.log('ServiceWorker registration successful with scope: ', registration.scope);
+    }, function(err) {
+      // registration failed :(
+      console.log('ServiceWorker registration failed: ', err);
+    });
+  });
+}
