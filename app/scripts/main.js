@@ -239,9 +239,11 @@ const createRestaurantHTML = (restaurant) => {
 
   const image = document.createElement('img');
   image.className = 'restaurant-img';
-  image.src = DBHelper.imageUrlForRestaurant(restaurant);
+  let src = DBHelper.imageUrlForRestaurant(restaurant);
+  image.src = src;
+  //let srcset= "images/space-needle.jpg 200w, images/space-needle-2x.jpg 400w, images/space-needle-hd.jpg 600w"
+  image.setAttribute('srcset', `${src} 200w, ${src} 400w, ${src} 600w`);
   image.setAttribute('alt','Image of restaurant named: ' + restaurant.name);
-  //tabindex="0"
   image.setAttribute('tabindex', '0');
   li.append(image);
 
